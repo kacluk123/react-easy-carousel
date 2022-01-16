@@ -5,7 +5,7 @@ Created for scratch React carousel library wich is still in beta stage.
 # Usage
 
 ```
-import Carousel from 'react-easy-carousel'
+import { Carousel } from 'react-super-easy-carousel'
 
 function App() {
   const [ index, setIndex ] = React.useState(0)
