@@ -1,6 +1,6 @@
 # React Easy Carousel
 
-Created for scratch React carousel library wich is still in wip stage.
+Created for scratch React carousel library wich is still in beta stage.
 
 # Usage
 
