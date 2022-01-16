@@ -25,6 +25,7 @@ function App() {
   );
 }
 ```
+**PROPS**
 | Prop | Description |
 | --- | --- |
 | currentIndex | Current selected item |
