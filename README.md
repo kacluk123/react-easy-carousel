@@ -1,4 +1,4 @@
-# React Easy Carousel
+# React Super Easy Carousel
 
 Created for scratch React carousel library wich is still in beta stage.
 
