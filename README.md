@@ -35,4 +35,4 @@ function App() {
 **IMPORTANT**
 In current package stage you need to define each carousel item width.
 Package will take the biggest element and make it's width as a container width.
-Component will auto center current selected carousel item.
+Component will auto center current selected slide.
