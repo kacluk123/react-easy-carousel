@@ -33,7 +33,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-easy-carousel",
+  "name": "react-super-easy-carousel",
   "author": "kacluk123",
   "module": "dist/react-easy-carousel.esm.js",
   "size-limit": [
