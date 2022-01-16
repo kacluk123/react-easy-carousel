@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Carousel 
         currentIndex={index}
-        changeCurrentIndex={(index: number) => { setIndex(index) }}
+        changeCurrentIndex={(index) => { setIndex(index) }}
       >
         <Item style={{width: '400px'}}>1</Item>
         <Item style={{width: '231px'}}>2</Item>
