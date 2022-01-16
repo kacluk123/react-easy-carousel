@@ -25,6 +25,11 @@ function App() {
   );
 }
 ```
+| Prop | Description |
+| --- | --- |
+| currentIndex | Current selected item |
+| changeCurrentIndex | Change current selected item |
+| children | Carousel elements |
 
 **IMPORTANT**
 In current package stage you need to define each carousel item width.
