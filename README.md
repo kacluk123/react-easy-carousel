@@ -15,6 +15,7 @@ function App() {
       <Carousel 
         currentIndex={index}
         changeCurrentIndex={(index) => { setIndex(index) }}
+        gap={25}
       >
         <Item style={{width: '400px'}}>1</Item>
         <Item style={{width: '231px'}}>2</Item>
@@ -30,9 +31,9 @@ function App() {
 | --- | --- |
 | currentIndex | Current selected item |
 | changeCurrentIndex | Change current selected item |
+| gap | space between element |
 | children | Carousel elements |
 
 **IMPORTANT**
-In current package stage you need to define each carousel item width.
-Package will take the biggest element and make it's width as a container width.
-Component will auto center current selected slide.
+Package will take carousel container size as it main size.
+Resizing is currently not supported.

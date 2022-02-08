@@ -2,6 +2,7 @@ import * as React from 'react'
 
 interface ICarousel {
   currentIndex: number
+  gap?: number;
   changeCurrentIndex: (index: number) => void
 }
 
@@ -15,7 +16,8 @@ const carouselStyles = {
 export const Carousel: React.FC<ICarousel> = ({ 
   changeCurrentIndex,
   currentIndex,
-  children
+  children,
+  gap = 0
 }) => {
   const [width, setWidth] = React.useState(0)
   const refs = React.useRef<number[]>([])
@@ -26,6 +28,7 @@ export const Carousel: React.FC<ICarousel> = ({
     start: 0,
     end: 0
   })
+  const carouselContainerRef = React.useRef<HTMLDivElement>(null)
   const transitions = React.useRef<(number | null)[]>([])
 
   React.useEffect(() => {
@@ -48,8 +51,8 @@ export const Carousel: React.FC<ICarousel> = ({
   }, [currentIndex])
 
   React.useEffect(() => {
-    const center = Math.max(...refs.current) / 2
-    const startingPosition = center - (refs.current[0] / 2)
+    const center = (carouselContainerRef.current?.clientWidth ?? 0) / 2
+    const startingPosition = center - ((refs.current[0]) / 2)
     changeCarouselPosition(startingPosition)
 
     const arr = refs.current.reduce<number[]>((prev, curr, index) => {
@@ -59,7 +62,7 @@ export const Carousel: React.FC<ICarousel> = ({
         const [lastValue] = prev.reverse()
         const previousIndex = refs.current[index - 1]
 
-        const nextSlide = lastValue - (center - previousIndex / 2) - previousIndex + (center - curr / 2)
+        const nextSlide = (lastValue - (center - previousIndex / 2) - previousIndex + (center - (curr / 2)))
         return [...prev, nextSlide]
       }
     }, [])
@@ -168,38 +171,44 @@ export const Carousel: React.FC<ICarousel> = ({
     }
   }
 
-  return (
-    <div>
-      <div
-        style={{width: Math.max(...refs.current), overflow: 'hidden'}}
-        onTouchMoveCapture={handleTouchMoveCapture}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onMouseDown={handleClick}
-        onMouseMove={onMouseCapture}
-        onMouseUp={onMouseUp}
-        onMouseOut={onMouseOut}
-      >
-        <div
-          style={{
-            ...carouselStyles,
-            userSelect: 'none',
-            width: width,
-          }}
-          ref={carouselRef}
-        >
-          {React.Children.map(children, (child) => {
-            const item = child as React.ReactElement
+  const spaceBetween = `${gap > 0 ? (gap / 2) : 0 }px`
 
-            return React.cloneElement(item, {
-              ref: (node: HTMLDivElement) => {
-                if (node?.offsetWidth) {
-                  refs.current.push(node.offsetWidth)
-                }
+  return (
+    <div
+      style={{width: "100%", overflow: 'hidden'}}
+      onTouchMoveCapture={handleTouchMoveCapture}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleClick}
+      ref={carouselContainerRef}
+      onMouseMove={onMouseCapture}
+      onMouseUp={onMouseUp}
+      onMouseOut={onMouseOut}
+    >
+      <div
+        style={{
+          ...carouselStyles,
+          userSelect: 'none',
+          width: width,
+        }}
+        ref={carouselRef}
+      >
+        {React.Children.map(children, (child) => {
+          const item = child as React.ReactElement
+          console.log(item.props.style)
+          return React.cloneElement(item, {
+            style: {
+              ...item.props.style,
+              marginRight: spaceBetween,
+              marginLeft: spaceBetween
+            },
+            ref: (node: HTMLDivElement) => {
+              if (node?.offsetWidth) {
+                refs.current.push(node.offsetWidth + (gap ?? 0))
               }
-            })
-          })}
-        </div>
+            }
+          })
+        })}
       </div>
     </div>
   )
